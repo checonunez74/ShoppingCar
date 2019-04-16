@@ -1,0 +1,14 @@
+ <?php
+ 	
+ 	require_once("data.php");
+ 	require_once("view_items.php");
+ 	echo "<h2>INSIDE SORT PRICE FILE</h2>";
+
+ 	    if( $price0 < $price1)
+        {
+            $priceTemp = $price0;
+            $price0 = $price1;
+            echo "Price0 is now: ".$price0;
+            
+        }
+    

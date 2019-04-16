@@ -1,0 +1,121 @@
+<html>
+
+<head>
+        <title>Incredibly Simple Shopping</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div class="container">
+            <div class="page-header">
+                    <h1>Buy More!</h1>
+            </div>
+
+        <!--on button click, POST back to self (controller) -->
+        <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST">    
+            <div class="row col-md-8 col-md-offset-1">
+                <!-- Make table extracting data from $items array -->
+                <?php
+                    function build_table($items) {
+                        //start table here with a variable that holds the table id
+                        $html = '<table id = "myTABLE">';
+                            // header row
+                            $html .= '<tr>';
+                                foreach ($items[0] as $key => $value) {
+                                   //echo var_dump($key, $value);
+                                   if($key!='id')
+                                    {
+                                       $html .= '<th>' . htmlspecialchars($key) . '</th>';
+                                    }
+                                    else
+                                    $html .= '<th>' . htmlspecialchars("") . '</th>';
+             
+                                }
+                            $html .= '</tr>';
+                            
+                            //Extract price value from Items associative array by index.
+                            //This for loop is only storing all values in price variable
+                            for($i=0; $i < 3; $i++)
+                                {  
+                                    if( $i == 0){
+                                        $price0 = array_values($items[$i])[2];
+                                        var_dump($price0);
+                                    }
+                                    if( $i == 1){
+                                        $price1 = array_values($items[$i])[2];
+                                        var_dump($price1);
+                                    }
+                                     if( $i == 2){
+                                        $price2 = array_values($items[$i])[2];
+                                        var_dump($price2);
+                                    }
+
+                                }
+                                 echo 'Index is: '.$i. ', ';
+                                 
+
+                            // Start creating data rows
+                            foreach ($items as $key => $value) {
+                                $html .= '<tr>';
+
+                                foreach ($value as $key => $value) {
+                                   //echo (array_values($items[0])[2]);
+                                   if($key == 'id'){
+                                        if($value == 1000 ){
+                                                $html .= '<td rowspan = "1"><input type="checkbox" name="item_id[]" value ="'.$price0.'">';
+                                                  echo '<br>'.$price0;
+                                                  var_dump($price0);
+                                          }
+                                         if($value == 1001 ){
+                                                $html .= '<td rowspan = "1"><input type="checkbox" name="item_id[]" value ="'.$price1.'">';
+                                                  echo '<br>'.$price1;
+                                                  var_dump($price1);
+                                          }
+                                        if($value == 1002 ){
+                                                $html .= '<td rowspan = "1"><input type="checkbox" name="item_id[]" value ="'.$price2.'">';
+                                                  echo '<br>'.$price2;
+                                                  var_dump($price2);
+                                          }
+                                    }
+
+                                    if($key!='img'){
+                                        if($key!='id')
+                                        {
+                                            $html .= '<td>' . htmlspecialchars($value) . '</td>';
+                                        }
+                                    }
+                                    else
+                                        $html .= '<td><img src="' . htmlspecialchars($value) . '" class="img-responsive" width="250" height="50" /></td>';
+                                } 
+                            }
+                            $html .= '</tr>';
+                            
+                        // finish table and return it
+                        $html .= '</table>';
+                        return $html;
+                    }  
+                ?>
+                               
+                 <?php echo build_table($items); ?>
+                    <!-- 
+                        notice the button has a name attribute, so that you can tell they POSTed even if they didn't
+                        select any checkboxes!
+                    -->
+                    <button class="btn btn-primary" name="buy">Buy!</button>
+                        <span>
+                            <div>
+                                <form>
+                                    <!-- I wanted to add these radio just to try them -->
+                                    <input  type="radio" name="ship" value="Pick-Up" checked> Pick Up<br>
+                                    <input type="radio" name="Ship" value="Ship"> Ship to Address  
+                                </form>
+                            </div>
+                        </span>
+         </form>
+    </div>
+ </div>
+   
+</body>
+
+</html>

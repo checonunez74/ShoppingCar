@@ -1,0 +1,129 @@
+<html>
+
+<head>
+        <title>Incredibly Simple Shopping</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header">
+            <h1>Buy More!</h1>
+    </div>
+
+        <div class="row col-md-8 col-md-offset-1">
+            <!-- Make table extracting data from $items array -->
+            <?php
+                function build_table($items) {
+                    //start table here
+                    $html = '<table id = "myTABLE">';
+
+                    // header row
+                    $html .= '<tr>';
+                    foreach ($items[0] as $key => $value) {
+                       //echo var_dump($key, $value);
+                       if($key!='id')
+                        {
+                           $html .= '<th>' . htmlspecialchars($key) . '</th>';
+                        }
+                        else
+                        $html .= '<th>' . htmlspecialchars("") . '</th>';
+ 
+                    }
+                    $html .= '</tr>';
+                    // data rows
+                    foreach ($items as $key => $value) {
+                        $html .= '<tr>';
+                        $html .= '<td rowspan = "1"><input type="checkbox" name="item_id[]" value="1000">';
+                        foreach ($value as $key => $value) {
+                            if($key!='img'){
+                                if($key!='id')
+                                {
+                                    $html .= '<td>' . htmlspecialchars($value) . '</td>';
+                                }
+                            }
+                            else
+
+                                $html .= '<td><img src="' . htmlspecialchars($value) . '" class="img-responsive" width="250" height="50" /></td>';
+                        }
+                    }
+                    $html .= '</tr>';
+                    
+                    // finish table and return it
+                    $html .= '</table>';
+                    return $html;
+                    }
+                echo build_table($items);
+            ?>
+
+                <!-- on button click, POST back to self (controller) 
+                <form method="POST" action="">
+
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><a href="">Name</a></th>
+                            <th class="price"><a href="">Price</a></th>
+                           </tr>
+                    </thead>
+
+                    
+                        use PHP to generate these table rows based on what is in the $items array.
+                        pay attention to the name/value attributes!
+                    
+                    <tr>
+                        <td rowspan="2">
+                            <input type="checkbox" name="item_id[]" value="1000">
+                            <img class="thumb" src="http://smartshopbuy.com/images/HomeDecorations/taylor-big-chair.jpg">
+                        </td>
+                        <td><span class="name">Big Chair</span></td>
+                        <td class="price">$56.78</td>
+                    </tr>
+                    <tr><td colspan="2">A big, comfy chair. Great for sitting, also laying down if you are very small.</td></tr>
+
+                    <tr>
+                        <td rowspan="2">
+                            <input type="checkbox" name="item_id[]" value="1001">
+                            <img class="thumb" src="http://upload.wikimedia.org/wikipedia/commons/e/e1/Gaoliang_Bridge.JPG">
+                        </td>
+                        <td><span class="name">Cool Bridge</span></td>
+                        <td class="price">$20,000.00</td>
+                    </tr>
+                    <tr><td colspan="2">Slightly used, in great condition. Price does not include shipping.</td></tr>
+
+                    <tr>
+                        <td rowspan="2">
+                            <input type="checkbox" name="item_id[]" value="1002">
+                            <img class="thumb" src="http://animalcontrolphx.com/wp-content/uploads/2013/05/gophers-400.jpg">
+                        </td>
+                        <td><span class="name">Best Friend</span></td>
+                        <td class="price">$12.34</td>
+                    </tr>
+                    <tr><td colspan="2">Occasionally rabid, but always there for you.</td></tr>
+                    
+                </table> --><!-- end generating table rows -->
+
+                <!-- 
+                    notice the button has a name attribute, so that you can tell they POSTed even if they didn't
+                    select any checkboxes!
+                -->
+                <button class="btn btn-primary" name="buy">Buy!</button>
+                    <span>
+                        <div>
+                            <form>
+                                <!-- I wanted to add these radio just to try them -->
+                                <input  type="radio" name="ship" value="Pick-Up" checked> Pick Up<br>
+                                <input type="radio" name="Ship" value="Ship"> Ship to Address  
+                            </form>
+                        </div>
+                    </span>
+            </form>
+        </div>
+ </div>
+   
+</body>
+
+</html>

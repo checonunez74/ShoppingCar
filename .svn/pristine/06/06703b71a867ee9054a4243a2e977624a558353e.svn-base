@@ -1,0 +1,48 @@
+<?php
+#1 include the data file to fake database data
+require_once("data.php");
+
+// do stuff!
+$price = 0;
+$id = 0;
+$ctr = 0;
+
+#2 Check for a Post to the page
+#If statement with isset function to calculate prices and items
+if (isset($_POST['item_id']))
+{
+    $item_id = $_POST['item_id'];
+    var_dump($item_id);
+    #Check the checkboxes with isset to see the key
+    #All items will comeback as an array item_id, in an associative array.
+    include 'data.php';
+    if(isset($item_id))
+    {   
+        while($ctr < count($item_id))
+        #for ($x=0; $x < count($item_id); $x++)
+        {
+            $id = $item_id[$ctr];
+            if (isset($items))
+            {
+                foreach($items as $item)
+                {
+                    if($item['id'] == $id)
+                    {
+                        $price += $item['price'];
+                    }
+                }
+            }$ctr++;
+        }
+        #3 inlcude the view if the user check any of the boxes
+        require_once('view_confirm.php');
+        die();
+    }
+    else
+    {
+        echo "something is wrong with data!";
+    }
+}
+
+#3 include the view items page
+require_once("view_items.php");
+?>
